@@ -111,6 +111,13 @@ Scroller = new Class({
 		} else {
 			this.childs = this.slideStrip.getChildren();
 		}
+		this.childCoords = Array();
+		for ( i = 0; i < this.childs.length; i++ ) {
+			this.childCoords.push({
+					left: this.childs[i].getCoordinates(this.windowElement)['left'],
+					top: this.childs[i].getCoordinates(this.windowElement)['top']
+				});
+		}
 		this.length = this.childs.length;
 		this.periodicalID = 0;
 		this.startdir = false;
@@ -169,14 +176,15 @@ Scroller = new Class({
 		this.gotoIdx();
 	},
 	gotoIdx: function () {
-		var s = this.childs[this.cChildIdx];
 		var bl = s.getStyle('border-left').toInt();
 		if (isNaN(bl)) bl=0;
 		var bt = s.getStyle('border-top').toInt();
 		if (isNaN(bt)) bt=0;
+
+		var ccrds = this.childCoords[this.cChildIdx];
 		this.curTrans = this.fx.start(
-						s.getCoordinates(this.windowElement)['left']-bl-this.options.leftm,
-						s.getCoordinates(this.windowElement)['top']-bt-this.options.topm
-						);
+			ccrds.left-bl-this.options.leftm,
+			ccrds.top-bl-this.options.topm
+		);
 	}
 });
