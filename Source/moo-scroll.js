@@ -176,6 +176,7 @@ Scroller = new Class({
 		this.gotoIdx();
 	},
 	gotoIdx: function () {
+		var s = this.childs[this.cChildIdx];
 		var bl = s.getStyle('border-left').toInt();
 		if (isNaN(bl)) bl=0;
 		var bt = s.getStyle('border-top').toInt();
